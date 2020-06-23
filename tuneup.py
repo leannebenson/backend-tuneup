@@ -5,7 +5,10 @@
 Use the timeit and cProfile libraries to find bad code.
 """
 
-__author__ = "???"
+__author__ = "LeanneBenson"
+#2 decorators 1 for profile and 1 for timing
+# write own code to check for duplicates and return duplicates
+#might have to check other functions for duplicates and change for efficiancy
 
 import cProfile
 import pstats
@@ -20,6 +23,11 @@ def profile(func):
     # You need to understand how they are constructed and used.
     raise NotImplementedError("Complete this decorator function")
 
+
+def timeit_helper():
+    """Part A: Obtain some profiling measurements using timeit."""
+    # YOUR CODE GOES HERE
+    pass
 
 def read_movies(src):
     """Returns a list of movie titles."""
@@ -47,10 +55,7 @@ def find_duplicate_movies(src):
     return duplicates
 
 
-def timeit_helper():
-    """Part A: Obtain some profiling measurements using timeit."""
-    # YOUR CODE GOES HERE
-    pass
+
 
 
 def main():
