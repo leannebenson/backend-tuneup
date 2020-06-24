@@ -6,60 +6,47 @@ Use the timeit and cProfile libraries to find bad code.
 """
 
 __author__ = "LeanneBenson"
-#2 decorators 1 for profile and 1 for timing
-# write own code to check for duplicates and return duplicates
-#might have to check other functions for duplicates and change for efficiancy
 
 import cProfile
 import pstats
 import functools
-
-
-def profile(func):
-    """A cProfile decorator function that can be used to
-    measure performance.
-    """
-    # Be sure to review the lesson material on decorators.
-    # You need to understand how they are constructed and used.
-    raise NotImplementedError("Complete this decorator function")
+import timeit
+import collections
 
 
 def timeit_helper():
-    """Part A: Obtain some profiling measurements using timeit."""
-    # YOUR CODE GOES HERE
-    pass
+    t = timeit.Timer(stmt='find_duplicate_movies("movies.txt")',
+                     setup='from __main__ import find_duplicate_movies')
+    time = t.repeat(repeat=7, number=3)
+    print("Minimum of Average Performances: {}".format(min(time) / 3))
+
+def profile(func):
+    def profiler(*args, **kwargs):
+        cp = cProfile.Profile()
+        cp.enable()
+        result = func(*args, **kwargs)
+        cp.disable()
+        sortby = 'cumulative'
+        ps = pstats.Stats(cp).sort_stats(sortby)
+        ps.print_stats()
+        return result
+    return profiler
 
 def read_movies(src):
-    """Returns a list of movie titles."""
     print(f'Reading file: {src}')
     with open(src, 'r') as f:
         return f.read().splitlines()
 
-
 def is_duplicate(title, movies):
-    """Returns True if title is within movies list."""
-    for movie in movies:
-        if movie.lower() == title.lower():
-            return True
-    return False
-
+    """Needs Space; @Profile needs social distaaaanncccingggggg LOL"""
+@profile
 
 def find_duplicate_movies(src):
-    """Returns a list of duplicate movies from a src list."""
     movies = read_movies(src)
-    duplicates = []
-    while movies:
-        movie = movies.pop()
-        if is_duplicate(movie, movies):
-            duplicates.append(movie)
-    return duplicates
-
-
-
+    return [movie for movie, count in collections.Counter(movies).items() if count > 1]
 
 
 def main():
-    """Computes a list of duplicate movie entries."""
     result = find_duplicate_movies('movies.txt')
     print(f'Found {len(result)} duplicate movies:')
     print('\n'.join(result))
