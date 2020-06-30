@@ -17,8 +17,8 @@ import collections
 def timeit_helper():
     t = timeit.Timer(stmt='find_duplicate_movies("movies.txt")',
                      setup='from __main__ import find_duplicate_movies')
-    time = t.repeat(repeat=7, number=3)
-    print("Minimum of Average Performances: {}".format(min(time) / 3))
+    time = t.repeat(repeat=7, number=5)
+    print("Minimum of Average Performances: {}".format(min(time) / 5))
 
 def profile(func):
     def profiler(*args, **kwargs):
