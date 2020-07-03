@@ -21,6 +21,7 @@ def timeit_helper():
     print("Minimum of Average Performances: {}".format(min(time) / 5))
 
 def profile(func):
+    @functools.wraps(func)
     def profiler(*args, **kwargs):
         cp = cProfile.Profile()
         cp.enable()
