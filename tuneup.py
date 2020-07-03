@@ -38,10 +38,7 @@ def read_movies(src):
     with open(src, 'r') as f:
         return f.read().splitlines()
 
-def is_duplicate(title, movies):
-    """Needs Space; @Profile needs social distaaaanncccingggggg LOL"""
 @profile
-
 def find_duplicate_movies(src):
     movies = read_movies(src)
     return [movie for movie, count in collections.Counter(movies).items() if count > 1]
